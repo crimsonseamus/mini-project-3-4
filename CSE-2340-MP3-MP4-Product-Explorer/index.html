@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopLens — Interactive Product Explorer (CSE-2340 MP3-MP4)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <span class="brand-logo" aria-hidden="true">SL</span>
+        <div>
+          <h1 class="brand-title">ShopLens</h1>
+          <p class="brand-subtitle">CSE-2340 &bull; Interactive API Product Explorer</p>
+        </div>
+      </div>
+
+      <div class="saved-summary">
+        <button id="view-saved-btn" class="btn btn-outline" type="button" aria-label="View saved products">
+          Saved Items <span id="saved-count" class="badge">0</span>
+        </button>
+        <button id="clear-saved-btn" class="btn btn-ghost" type="button" title="Clear all saved items">
+          Clear Saved
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container main-content">
+    <!-- Controls Section: Search, Sort & Category Filters -->
+    <section class="controls-panel" aria-label="Search and filter products">
+      <div class="search-sort-row">
+        <div class="search-box">
+          <label for="search-input" class="sr-only">Search products</label>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search products by title, brand, or description..."
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="sort-box">
+          <label for="sort-select">Sort by:</label>
+          <select id="sort-select">
+            <option value="default">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating-desc">Highest Rated</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dynamic Category Filter Buttons -->
+      <div id="category-filters" class="category-pills" role="group" aria-label="Product categories">
+        <!-- Populated dynamically via JavaScript -->
+      </div>
+
+      <div class="results-meta">
+        <p id="results-count">Loading catalog...</p>
+      </div>
+    </section>
+
+    <!-- API State 1: Loading State -->
+    <section id="loading-state" class="state-box" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <h2>Fetching Products...</h2>
+      <p>Retrieving live catalog data from the external API.</p>
+    </section>
+
+    <!-- API State 2: Error State -->
+    <section id="error-state" class="state-box error-box hidden" role="alert">
+      <h2>Unable to Load Products</h2>
+      <p id="error-message">Something went wrong while connecting to the API.</p>
+      <button id="retry-btn" class="btn btn-primary" type="button">Retry Request</button>
+    </section>
+
+    <!-- API State 3: Empty State -->
+    <section id="empty-state" class="state-box hidden" aria-live="polite">
+      <h2>No Matching Products Found</h2>
+      <p id="empty-message">Try adjusting your search query or clearing your active filters.</p>
+      <button id="reset-filters-btn" class="btn btn-primary" type="button">Reset Filters</button>
+    </section>
+
+    <!-- Dynamic Product Grid -->
+    <section id="product-grid" class="product-grid" aria-label="Product results">
+      <!-- Product cards rendered dynamically via JavaScript -->
+    </section>
+  </main>
+
+  <!-- Item Detail Modal (Selected Item View) -->
+  <div id="product-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button id="close-modal-btn" class="modal-close" type="button" aria-label="Close modal">&times;</button>
+      <div id="modal-body" class="modal-body">
+        <!-- Selected product details injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Software Development I (CSE-2340) &mdash; Mini Project 3-4 (MP3-MP4) &bull; Powered by DummyJSON REST API</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
